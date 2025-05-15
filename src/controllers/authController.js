@@ -11,7 +11,7 @@ exports.signup = async(req, res, next) => {
     }
 
     // Getting the body
-    const { names, email, phone, nationalId, password } = req.body
+    const { names, email, phone, nationalId, password, role } = req.body
 
     try{
         // Checking if user already exists
@@ -23,8 +23,10 @@ exports.signup = async(req, res, next) => {
         const hashed = await bcrypt.hash(password, salt)
     
         // creating user
+        let userRole = 'ROLE_STANDARD'
+        if(role == 'ROLE_ADMIN') userRole = 'ROLE_ADMIN'
         const user = await User.create({
-            names, email, phone, nationalId, password: hashed, role: 'ROLE_STANDARD'
+            names, email, phone, nationalId, password: hashed, role: userRole
         })
     
         // give token

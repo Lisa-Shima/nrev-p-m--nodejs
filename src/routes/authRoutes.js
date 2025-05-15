@@ -9,7 +9,8 @@ router.post('/signup', [
     body('email').notEmpty().isEmail().withMessage('Email must be valid'),
     body('phone').notEmpty().withMessage('Phone is required'),
     body('nationalId').notEmpty().withMessage('National Id is required'),
-    body('password').isLength({min: 6}).withMessage('Password should be atleast 6 characters')
+    body('password').isLength({min: 6}).withMessage('Password should be atleast 6 characters'),
+    body('role').optional().isIn(['ROLE_STANDARD', 'ROLE_ADMIN'])
 ], signup)
 
 
